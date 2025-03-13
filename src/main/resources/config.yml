@@ -1,0 +1,5 @@
+# If true will allow maces to be crafted but as soon as one is crafted it will be set to false
+mace: true
+
+# if false you can disable it changing the mace value automatically
+enabled: true
