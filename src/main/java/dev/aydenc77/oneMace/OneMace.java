@@ -1,5 +1,6 @@
 package dev.aydenc77.oneMace;
 
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.bukkit.Material;
@@ -35,7 +36,7 @@ public final class OneMace extends JavaPlugin implements Listener {
     public void onPrepareItemCraftEvent(PrepareItemCraftEvent event) {
         ItemStack result = event.getInventory().getResult();
 
-        if (result != null && result.getType() == Material.MACE && allowmace == false) {
+        if (result != null && result.getType() == Material.MACE && allowmace == false && event.getInventory().getType().equals(InventoryType.CRAFTER)) {
             event.getInventory().setResult(new ItemStack(Material.AIR));
         } else if (result != null && result.getType() == Material.MACE && allowmace == true && getConfig().getBoolean("enabled") == true){
             allowmace = false;
