@@ -2,7 +2,7 @@ name: OneMace
 version: '1.0'
 main: dev.aydenc77.oneMace.OneMace
 api-version: '1.21'
-prefix: Skypixle-Server
+prefix: OneMace
 authors: [ AydenC77 ]
 description: AydenC77's Client
 website: https://AydenC77.dev

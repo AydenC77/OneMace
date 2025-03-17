@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.event.block.CrafterCraftEvent;
+
 
 
 import org.bukkit.event.Listener;
@@ -36,9 +38,25 @@ public final class OneMace extends JavaPlugin implements Listener {
     public void onPrepareItemCraftEvent(PrepareItemCraftEvent event) {
         ItemStack result = event.getInventory().getResult();
 
-        if (result != null && result.getType() == Material.MACE && allowmace == false && event.getInventory().getType().equals(InventoryType.CRAFTER)) {
+        if (result != null && result.getType() == Material.MACE && allowmace == false) {
             event.getInventory().setResult(new ItemStack(Material.AIR));
-        } else if (result != null && result.getType() == Material.MACE && allowmace == true && getConfig().getBoolean("enabled") == true){
+        } else if (result != null && result.getType() == Material.MACE && allowmace == true && getConfig().getBoolean("enabled") == true) {
+            getLogger().log(Level.INFO, "Crafting mace" + event.getInventory().getType());
+            allowmace = false;
+            getConfig().set("mace", false);
+            saveDefaultConfig();
+        }
+    }
+
+
+    @EventHandler
+    public void onCrafterCraftEven(CrafterCraftEvent event) {
+        ItemStack result = event.getResult();
+
+        if (result.getType() == Material.MACE && allowmace == false || getConfig().getBoolean("AllowCrafter") == false) {
+            event.setResult(new ItemStack(Material.AIR));
+            event.setCancelled(true);
+        } else if (result != null && result.getType() == Material.MACE && allowmace == true && getConfig().getBoolean("enabled") == true) {
             allowmace = false;
             getConfig().set("mace", false);
             saveDefaultConfig();
