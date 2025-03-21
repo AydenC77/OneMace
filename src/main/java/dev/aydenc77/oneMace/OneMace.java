@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
+
 import org.bukkit.event.block.CrafterCraftEvent;
 
 
@@ -34,14 +36,27 @@ public final class OneMace extends JavaPlugin implements Listener {
     public void onDisable() {}
 
 
+    //@EventHandler
+    //public void onPrepareItemCraftEvent(PrepareItemCraftEvent event) {
+        //ItemStack result = event.getInventory().getResult();
+
+        //if (result != null && result.getType() == Material.MACE && allowmace == false) {
+            //event.getInventory().setResult(new ItemStack(Material.AIR));
+        //} else if (result != null && result.getType() == Material.MACE && allowmace == true && getConfig().getBoolean("enabled") == true) {
+            //allowmace = false;
+            //getConfig().set("mace", false);
+            //saveDefaultConfig();
+        //}
+    //}
+
     @EventHandler
-    public void onPrepareItemCraftEvent(PrepareItemCraftEvent event) {
+    public void onCraftItemEvent(CraftItemEvent event) {
         ItemStack result = event.getInventory().getResult();
 
         if (result != null && result.getType() == Material.MACE && allowmace == false) {
             event.getInventory().setResult(new ItemStack(Material.AIR));
+            event.setCancelled(true);
         } else if (result != null && result.getType() == Material.MACE && allowmace == true && getConfig().getBoolean("enabled") == true) {
-            getLogger().log(Level.INFO, "Crafting mace" + event.getInventory().getType());
             allowmace = false;
             getConfig().set("mace", false);
             saveDefaultConfig();
@@ -50,7 +65,7 @@ public final class OneMace extends JavaPlugin implements Listener {
 
 
     @EventHandler
-    public void onCrafterCraftEven(CrafterCraftEvent event) {
+    public void onCrafterCraftEvent(CrafterCraftEvent event) {
         ItemStack result = event.getResult();
 
         if (result.getType() == Material.MACE && allowmace == false || getConfig().getBoolean("AllowCrafter") == false) {
