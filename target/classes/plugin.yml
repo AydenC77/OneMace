@@ -1,5 +1,5 @@
 name: OneMace
-version: '1.8'
+version: '1.9'
 main: dev.aydenc77.oneMace.OneMace
 api-version: '1.21'
 prefix: OneMace

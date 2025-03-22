@@ -36,18 +36,14 @@ public final class OneMace extends JavaPlugin implements Listener {
     public void onDisable() {}
 
 
-    //@EventHandler
-    //public void onPrepareItemCraftEvent(PrepareItemCraftEvent event) {
-        //ItemStack result = event.getInventory().getResult();
+    @EventHandler
+    public void onPrepareItemCraftEvent(PrepareItemCraftEvent event) {
+        ItemStack result = event.getInventory().getResult();
 
-        //if (result != null && result.getType() == Material.MACE && allowmace == false) {
-            //event.getInventory().setResult(new ItemStack(Material.AIR));
-        //} else if (result != null && result.getType() == Material.MACE && allowmace == true && getConfig().getBoolean("enabled") == true) {
-            //allowmace = false;
-            //getConfig().set("mace", false);
-            //saveDefaultConfig();
-        //}
-    //}
+        if (result != null && result.getType() == Material.MACE && allowmace == false) {
+            event.getInventory().setResult(new ItemStack(Material.AIR));
+        }
+    }
 
     @EventHandler
     public void onCraftItemEvent(CraftItemEvent event) {
